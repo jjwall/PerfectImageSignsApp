@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+var GMAPIKey = require('./routes/GMapsAPIKey.js');
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -16,6 +17,8 @@ app.use(express.static("./public"));
 
 // Routes
 require("./routes/html-routes.js")(app);
+
+console.log(GMAPIKey);
 
 // Start express app
 app.listen(PORT, function() {
