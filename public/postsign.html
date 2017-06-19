@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+	<head>
+		<meta charset = "UTF-8">
+		<title>Perfect Image Signs App</title>
+		<!--link to jquery minified library-->
+		<script type = "text/javascript" src="/lib/jquery-3.2.1.min.js"></script>
+		<!--link to bulma library-->
+		<link type="text/css" rel="stylesheet" href="/lib/bulma.css">
+		<link rel="stylesheet" type="text/css" href="/css/postsign.css">
+	</head>
+<body>
+	<!-- 	Main page header 	-->
+	<!-- <section class="hero is-medium gig-banner"> -->
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title">Post Sign</h1>
+				<a class="button is-outlined" id = "back-home">< Back</a>
+			</div>
+		</div>
+<!-- 	</section> -->
+	<!-- Main page content -->
+	<div class="container everything">
+		<div class="main-buttons columns is-fullwidth">
+			<div class="column is-12">
+				<div class="field">
+					<p>Company Name:</p>
+					<p class="control">
+					<input class="input" id="company-name" type="text" placeholder="Company Name">
+					</p>
+				</div>
+				<div class="field">
+					<p>Description:</p>
+					<p class="control">
+						<textarea class="textarea" id = "description" placeholder="Billboad / Sign description goes here"></textarea>
+					</p>
+				</div>
+				<a class="button is-success is-outlined" id = "submit-post">Submit</a>
+				<br>
+				<br>
+				<div id = "submitPostError"></div>
+			</div>
+		</div>
+	</div>
+	<!--link to index.js-->
+	<script type="text/javascript" src="/javascript/postsign.js"></script>
+</body>
+</html>

@@ -1,5 +1,17 @@
 $(document).ready(function(){
-	var x = 2;
-	console.log("hi there youu :)");
-	console.log(x);
+	$("#post-sign").on("click", function(event){
+		event.preventDefault();
+		// $.ajax({
+	 //        method: "POST",
+	 //        url: "/api/admin",
+	 //        data: newAdmin
+	 //    })
+	 //    .done(function(data) {
+	 //        console.log(data);
+	 //        window.location.href = "/post-sign/" + data.id;
+	 //    });
+
+	 window.location.href = "/post-sign";
+
+	});
 });
