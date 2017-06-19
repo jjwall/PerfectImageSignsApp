@@ -1,5 +1,31 @@
 $(document).ready(function(){
 
+	// function getLocation() {
+ //    	if (navigator.geolocation) {
+ //       		navigator.geolocation.getCurrentPosition(showPosition);
+ //    	} 
+ //    	else {
+ //        	console.log("Geolocation is not supported by this browser.");
+ //    	}
+	// }
+
+	// function showPosition(position) {
+ //    	console.log("Latitude: " + position.coords.latitude + 
+ //    	" Longitude: " + position.coords.longitude)
+ //    	// .done(function(){
+ //    	// 	console.log("You're position was found");
+ //    	// });
+ //    	$.ajax({
+ //    		success: function() {
+ //    			console.log("We did it!");
+ //    		}
+ //    	})
+	// }
+
+	// getLocation();
+
+	// showPosition();
+
 	var companyName = $("#company-name");
 	var description = $("#description");
 
@@ -35,11 +61,59 @@ $(document).ready(function(){
 		console.log("Company Name and description successfully submitted");
 		var postCompanyName = $("#company-name").val().trim();
 		var postDescription = $("#description").val().trim();
-		var newPost = {
-			company: postCompanyName,
-			description: postDescription 
+		// data being sent to DataBase will include:
+		// company name, description, date, geolocation data, picture info~
+
+		function getLocation() {
+    		if (navigator.geolocation) {
+       			navigator.geolocation.getCurrentPosition(showPosition);
+    		} 
+    		else {
+        		console.log("Geolocation is not supported by this browser.");
+    		}
 		}
-		console.log(newPost);
+
+		getLocation()
+
+		function showPosition(position) {
+			$("#submit-post").addClass("is-loading");
+    		console.log("Latitude: " + position.coords.latitude + 
+    		" Longitude: " + position.coords.longitude)
+    		$.ajax({
+    			success: function() {
+    				console.log("We did it!");
+    				var newPost = {
+						company: postCompanyName,
+						description: postDescription,
+						date: moment().format('MMMM Do, YYYY'),
+						latlon: `${position.coords.latitude},${position.coords.longitude}`
+					}
+					console.log(newPost);
+					companyName.val("");
+	      			description.val("");
+	      			companyName.removeClass("is-danger");
+	      			description.removeClass("is-danger");
+	        		companyName.addClass("is-success");
+	        		description.addClass("is-success");
+	        		$("#submit-post").removeClass("is-loading");
+	        		$("#submitPostError").empty();
+	        		$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
+
+    			}
+    		});
+		}
+
+		showPosition();
+
+		// var newPost = {
+		// 	company: postCompanyName,
+		// 	description: postDescription,
+		// 	date: moment().format('MMMM Do, YYYY'),
+		// 	latlon: `${position.coords.latitude},${position.coords.longitude}`
+		// }
+		// console.log(newPost);
+
+		
 		// $.ajax({
 	 //        method: "POST",
 	 //        url: "/api/post",
@@ -47,14 +121,14 @@ $(document).ready(function(){
 	 //    })
 	 //    .done(function(data) {
 	        //console.log(data);
-	        companyName.val("");
-	      	description.val("");
-	      	companyName.removeClass("is-danger");
-	      	description.removeClass("is-danger");
-	        companyName.addClass("is-success");
-	        description.addClass("is-success");
-	        $("#submitPostError").empty();
-	        $("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
+	       //  companyName.val("");
+	      	// description.val("");
+	      	// companyName.removeClass("is-danger");
+	      	// description.removeClass("is-danger");
+	       //  companyName.addClass("is-success");
+	       //  description.addClass("is-success");
+	       //  $("#submitPostError").empty();
+	       //  $("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
 	        // window.location.href = "/admin/" + data.id;
 	    // });
 	}
