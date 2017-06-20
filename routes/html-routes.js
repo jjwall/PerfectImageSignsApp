@@ -12,4 +12,8 @@ module.exports = function(app) {
 		res.sendFile(path.join(__dirname, "../public/postsign.html"))
 	})
 
+	app.get("/sign-date", function(req, res) {
+		res.sendFile(path.join(__dirname, "../public/signdate.html"))
+	})
+
 };

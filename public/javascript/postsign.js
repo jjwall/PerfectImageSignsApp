@@ -1,32 +1,7 @@
 $(document).ready(function(){
 
-	// function getLocation() {
- //    	if (navigator.geolocation) {
- //       		navigator.geolocation.getCurrentPosition(showPosition);
- //    	} 
- //    	else {
- //        	console.log("Geolocation is not supported by this browser.");
- //    	}
-	// }
-
-	// function showPosition(position) {
- //    	console.log("Latitude: " + position.coords.latitude + 
- //    	" Longitude: " + position.coords.longitude)
- //    	// .done(function(){
- //    	// 	console.log("You're position was found");
- //    	// });
- //    	$.ajax({
- //    		success: function() {
- //    			console.log("We did it!");
- //    		}
- //    	})
-	// }
-
-	// getLocation();
-
-	// showPosition();
-
 	var companyName = $("#company-name");
+	
 	var description = $("#description");
 
 	$("#back-home").on("click", function(event){
@@ -57,6 +32,11 @@ $(document).ready(function(){
 		}
 	}
 
+	// lot going into the submitPost function, we use getLocation and showPosition
+	// to utilize the HTML5 Geolocation API, we capture data that was inputed for
+	// company name and description of sign on the client-side and we use moment.js
+	// to automatically calculate today's date for extra submission information
+	// high-level interface here to meet demands for freelance project
 	function submitPost () {
 		console.log("Company Name and description successfully submitted");
 		var postCompanyName = $("#company-name").val().trim();
@@ -77,59 +57,41 @@ $(document).ready(function(){
 
 		function showPosition(position) {
 			$("#submit-post").addClass("is-loading");
+			// adds loading circle while ajax waits for success function
     		console.log("Latitude: " + position.coords.latitude + 
     		" Longitude: " + position.coords.longitude)
+    		// have to put a 'naked' ajax call here to allow browser to obtain geolocation data
     		$.ajax({
     			success: function() {
     				console.log("We did it!");
-    				var newPost = {
-						company: postCompanyName,
-						description: postDescription,
-						date: moment().format('MMMM Do, YYYY'),
-						latlon: `${position.coords.latitude},${position.coords.longitude}`
-					}
-					console.log(newPost);
-					companyName.val("");
-	      			description.val("");
-	      			companyName.removeClass("is-danger");
-	      			description.removeClass("is-danger");
-	        		companyName.addClass("is-success");
-	        		description.addClass("is-success");
-	        		$("#submit-post").removeClass("is-loading");
-	        		$("#submitPostError").empty();
-	        		$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
-
+    				// embed another ajax call to POST all data to MongoDB
+    				$.ajax({
+    				//var newPost = {
+    					type: "POST",
+    					dataType: "json",
+    					url: "/api/signs",
+    					data: {
+							company: postCompanyName,
+							description: postDescription,
+							date: moment().format('MMMM Do, YYYY'),
+							latlon: `${position.coords.latitude},${position.coords.longitude}`
+						}
+					//}
+					//console.log(newPost);
+					}).done(function(data) {
+						companyName.val("");
+	      				description.val("");
+	      				companyName.removeClass("is-danger");
+	      				description.removeClass("is-danger");
+	        			companyName.addClass("is-success");
+	        			description.addClass("is-success");
+	        			$("#submit-post").removeClass("is-loading");
+	        			$("#submitPostError").empty();
+	        			$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
+	        		});
     			}
     		});
 		}
-
 		showPosition();
-
-		// var newPost = {
-		// 	company: postCompanyName,
-		// 	description: postDescription,
-		// 	date: moment().format('MMMM Do, YYYY'),
-		// 	latlon: `${position.coords.latitude},${position.coords.longitude}`
-		// }
-		// console.log(newPost);
-
-		
-		// $.ajax({
-	 //        method: "POST",
-	 //        url: "/api/post",
-	 //        data: newPost
-	 //    })
-	 //    .done(function(data) {
-	        //console.log(data);
-	       //  companyName.val("");
-	      	// description.val("");
-	      	// companyName.removeClass("is-danger");
-	      	// description.removeClass("is-danger");
-	       //  companyName.addClass("is-success");
-	       //  description.addClass("is-success");
-	       //  $("#submitPostError").empty();
-	       //  $("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
-	        // window.location.href = "/admin/" + data.id;
-	    // });
 	}
 });

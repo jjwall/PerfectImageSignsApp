@@ -7,32 +7,29 @@
 		<script type = "text/javascript" src="/lib/jquery-3.2.1.min.js"></script>
 		<!--link to bulma library-->
 		<link type="text/css" rel="stylesheet" href="/lib/bulma.css">
-		<link rel="stylesheet" type="text/css" href="/css/index.css">
+		<!-- <link rel="stylesheet" type="text/css" href="/css/postsign.css"> -->
 	</head>
 <body>
 	<!-- 	Main page header 	-->
-	<section class="hero is-medium gig-banner">
+	<!-- <section class="hero is-medium gig-banner"> -->
 		<div class="hero-body">
 			<div class="container">
-				<h1 class="title">Perfect Image Signs</h1>
+				<h1 class="title">Signs By Date</h1>
+				<a class="button is-outlined" id = "back-home">< Back</a>
 			</div>
 		</div>
-	</section>
+<!-- 	</section> -->
 	<!-- Main page content -->
 	<div class="container everything">
 		<div class="main-buttons columns is-fullwidth">
 			<div class="column is-12">
-				<button class="button is-medium index-button" id = "post-sign">Post Sign</button>
-				<br>
-				<br>
-				<button class="button is-medium index-button" id = "sign-date">View Signs By Date</button>
-				<br>
-				<br>
-				<button class="button is-medium index-button" id = "sign-company">View Signs By Company Name</button>		
+				<div class="field">
+					<div id = "results"></div>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!--link to index.js-->
-	<script type="text/javascript" src="/javascript/index.js"></script>
+	<script type="text/javascript" src="/javascript/signdate.js"></script>
 </body>
 </html>
