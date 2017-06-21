@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	var companyName = $("#company-name");
-	
+
 	var description = $("#description");
 
 	$("#back-home").on("click", function(event){
@@ -58,23 +58,33 @@ $(document).ready(function(){
 		function showPosition(position) {
 			$("#submit-post").addClass("is-loading");
 			// adds loading circle while ajax waits for success function
-    		console.log("Latitude: " + position.coords.latitude + 
-    		" Longitude: " + position.coords.longitude)
+    		// console.log("Latitude: " + position.coords.latitude + 
+    		// " Longitude: " + position.coords.longitude);
     		// have to put a 'naked' ajax call here to allow browser to obtain geolocation data
     		$.ajax({
+    			error: function () {
+    				alert("There was an AJAX error!");
+    			},
     			success: function() {
     				console.log("We did it!");
     				// embed another ajax call to POST all data to MongoDB
     				$.ajax({
     				//var newPost = {
     					type: "POST",
-    					dataType: "json",
-    					url: "/api/signs",
+    					dataType: 'json',
+    					url: '/api/signs',
+    					crossDomain: true,
     					data: {
 							company: postCompanyName,
 							description: postDescription,
 							date: moment().format('MMMM Do, YYYY'),
-							latlon: `${position.coords.latitude},${position.coords.longitude}`
+							latlon: position.coords.latitude + "," + position.coords.longitude
+						},
+						success: function () {
+							alert("data sent");
+						},
+						error: function () {
+							alert("AJAX POST error");
 						}
 					//}
 					//console.log(newPost);
