@@ -4,7 +4,7 @@ var mongojs = require("mongojs");
 var bodyParser = require("body-parser");
 var path = require("path");
 var logger = require("morgan");
-var GMAPIKey = require('./routes/GMapsAPIKey.js');
+//var GMAPIKey = require('./routes/GMapsAPIKey.js');
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -68,7 +68,7 @@ app.get("/api/all", function(req, res) {
   });
 });
 
-console.log(GMAPIKey);
+//console.log(GMAPIKey);
 
 // Start express app
 app.listen(PORT, function() {
