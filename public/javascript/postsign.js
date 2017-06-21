@@ -73,7 +73,6 @@ $(document).ready(function(){
     					type: "POST",
     					dataType: 'json',
     					url: '/api/signs',
-    					crossDomain: true,
     					data: {
 							company: postCompanyName,
 							description: postDescription,
