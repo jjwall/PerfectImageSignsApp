@@ -71,20 +71,21 @@ $(document).ready(function(){
     				$.ajax({
     				//var newPost = {
     					type: "POST",
-    					dataType: 'json',
+    					// dataType: 'json',
     					url: '/api/signs',
     					data: {
 							company: postCompanyName,
 							description: postDescription,
 							date: moment().format('MMMM Do, YYYY'),
 							latlon: position.coords.latitude + "," + position.coords.longitude
-						},
-						success: function () {
-							alert("data sent");
-						},
-						error: function () {
-							alert("AJAX POST error");
 						}
+						// success: function () {
+						// 	alert("data sent");
+						// },
+						// error: function () {
+						// 	$("#submit-post").removeClass("is-loading");
+						// 	alert("AJAX POST error");
+						// }
 					//}
 					//console.log(newPost);
 					}).done(function(data) {
