@@ -22,7 +22,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 // Database Configuration
-//var databaseUrl = "PISdb"; -> local DB address
+// var databaseUrl = "PISdb"; // -> local DB address
 var databaseUrl = "mongodb://ds135252.mlab.com:35252/heroku_rcltfz79"; // heroku DB address
 var collections = ["signs"];
 
