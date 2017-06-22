@@ -65,7 +65,8 @@ $(document).ready(function(){
     			error: function () {
     				alert("There was an AJAX error!");
     			},
-    			success: function() {
+    			success: function(event) {
+    				event.preventDefault();
     				console.log("We did it!");
     				// embed another ajax call to POST all data to MongoDB
     				$.ajax({
