@@ -22,8 +22,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 // Database Configuration
-// var databaseUrl = "PISdb"; // -> local DB address
-var databaseUrl = "mongodb://heroku_rcltfz79:62vr2u59dknavnl1njtas4s35n@ds135252.mlab.com:35252/heroku_rcltfz79"; // heroku DB address
+var databaseUrl = "PISdb"; // -> local DB address
+// var databaseUrl = "mongodb://heroku_rcltfz79:62vr2u59dknavnl1njtas4s35n@ds135252.mlab.com:35252/heroku_rcltfz79"; // heroku DB address
 var collections = ["signs"];
 
 // Hook mongojs config to db variable

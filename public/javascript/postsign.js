@@ -1,5 +1,30 @@
 $(document).ready(function(){
 
+	// function handlePermission() {
+ //  		navigator.permissions.query({name:'geolocation'}).then(function(result) {
+ //    		if (result.state == 'granted') {
+ //     			report(result.state);
+ //      			//geoBtn.style.display = 'none';
+ //    		} else if (result.state == 'prompt') {
+ //      			report(result.state);
+ //      			//geoBtn.style.display = 'none';
+ //      			navigator.geolocation.getCurrentPosition(revealPosition,positionDenied,geoSettings);
+ //    		} else if (result.state == 'denied') {
+ //      			report(result.state);
+ //      			//geoBtn.style.display = 'inline';
+ //    		}
+ //    		result.onchange = function() {
+ //      			report(result.state);
+ //    		}
+ //  		});
+	// }
+
+	// function report(state) {
+ //  		console.log('Permission ' + state);
+	// }
+
+	// handlePermission();
+
 	var companyName = $("#company-name");
 
 	var description = $("#description");
@@ -47,18 +72,26 @@ $(document).ready(function(){
 		function getLocation() {
     		if (navigator.geolocation) {
        			navigator.geolocation.getCurrentPosition(showPosition);
-    		} 
+    		}
     		else {
         		console.log("Geolocation is not supported by this browser.");
     		}
 		}
 
-		getLocation()
+		getLocation();
+
+		// navigator.geolocation.watchPosition(function(position) {
+  	// 	console.log("i'm tracking you!");
+		// },
+		// function (error) {
+  	// 	if (error.code == error.PERMISSION_DENIED)
+    //   	console.log("you denied me :-(");
+		// });
 
 		function showPosition(position) {
 			$("#submit-post").addClass("is-loading");
 			// adds loading circle while ajax waits for success function
-    		// console.log("Latitude: " + position.coords.latitude + 
+    		// console.log("Latitude: " + position.coords.latitude +
     		// " Longitude: " + position.coords.longitude);
     		// have to put a 'naked' ajax call here to allow browser to obtain geolocation data
     		$.ajax({
@@ -99,7 +132,7 @@ $(document).ready(function(){
 	        			$("#submitPostError").empty();
 	        			$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
 	        		});
-    			}
+    			} // end success function
     		});
 		}
 		showPosition();
