@@ -65,9 +65,13 @@ $(document).ready(function(){
 			$("#submit-post").removeClass("is-loading");
 			$.ajax({
 				type: "GET",
-				url: 'http://freegeoip.net/json',
+				url: 'http://ip-api.com/json',
 				// contentType: 'text/plain',
-				dataType: 'jsonp'
+				dataType: 'json'
+				// data: {
+				// 	format: 'json',
+				// 	ip: '192.168.0.5'
+				// }
 				// crossDomain: true,
 				// xhrFields: {
 				// 	withCredentials: false
@@ -76,7 +80,8 @@ $(document).ready(function(){
 				// 	"Access-Control-Allow-Origin":"Access-Control-Allow-Origin"
 				// }
 			}).done(function(data){
-				alert(`lat: ${data.latitude} lon: ${data.longitude}`);
+				console.log(data);
+				alert(`lat: ${data.lat} lon: ${data.lon}`);
 			});
 		}
 
