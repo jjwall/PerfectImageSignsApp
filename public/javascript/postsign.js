@@ -63,6 +63,21 @@ $(document).ready(function(){
 			// have access to user's lat/lon coordinates. So we pop up a module asking to input lat/lon coordinates manually
   		alert("Either your device and/or browser does not support Geolocation. Please input your long/lat coords manually:");
 			$("#submit-post").removeClass("is-loading");
+			$.ajax({
+				type: "GET",
+				url: 'http://freegeoip.net/json',
+				// contentType: 'text/plain',
+				dataType: 'jsonp'
+				// crossDomain: true,
+				// xhrFields: {
+				// 	withCredentials: false
+				// },
+				// headers: {
+				// 	"Access-Control-Allow-Origin":"Access-Control-Allow-Origin"
+				// }
+			}).done(function(data){
+				alert(`lat: ${data.latitude} lon: ${data.longitude}`);
+			});
 		}
 
 		function geo_success(position) {
