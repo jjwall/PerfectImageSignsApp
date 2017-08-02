@@ -65,9 +65,9 @@ $(document).ready(function(){
 			$("#submit-post").removeClass("is-loading");
 			$.ajax({
 				type: "GET",
-				url: 'http://ip-api.com/json',
+				url: 'http://freegeoip.net/json',
 				// contentType: 'text/plain',
-				dataType: 'json'
+				dataType: 'jsonp'
 				// data: {
 				// 	format: 'json',
 				// 	ip: '192.168.0.5'
@@ -81,7 +81,7 @@ $(document).ready(function(){
 				// }
 			}).done(function(data){
 				console.log(data);
-				alert(`lat: ${data.lat} lon: ${data.lon}`);
+				alert(`lat: ${data.latitude} lon: ${data.longitude}`);
 			});
 		}
 
