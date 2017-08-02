@@ -54,6 +54,10 @@ $(document).ready(function(){
   		geo_position_js.getCurrentPosition(geo_success, geo_error);
 		}
 
+		// var watchID = navigator.geolocation.watchPosition(function(position) {
+  	// 	alert(`${position.coords.latitude}, ${position.coords.longitude}`);
+		// });
+
 		function geo_error() {
 			// when geo_error fires, we still capture company name and description, but we do not automatically
 			// have access to user's lat/lon coordinates. So we pop up a module asking to input lat/lon coordinates manually
