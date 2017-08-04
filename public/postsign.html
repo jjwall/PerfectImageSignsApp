@@ -10,8 +10,22 @@
 		<!--link to bulma library-->
 		<script type="text/javascript" src="/lib/geo-min.js"></script>
 		<!--link to geo.js minified library-->
+		<script type="text/javascript" src="/lib/plist.js"></script>
+		<!--link to plist.js library-->
 		<link type="text/css" rel="stylesheet" href="/lib/bulma.css">
 		<link rel="stylesheet" type="text/css" href="/css/postsign.css">
+		<script>
+			//function loadXMLDoc() {
+				var xmlhttp = new XMLHttpRequest();
+				// xmlhttp.onreadystatechange = function() {
+				// 	if (this.readyState == 4 && this.status == 200) {
+				// 		myFunction(this);
+				// 	}
+				// };
+				xmlhttp.open("GET", "config.xml", true);
+				xmlhttp.send();
+			//}
+		</script>
 	</head>
 <body>
 	<!-- 	Main page header 	-->
