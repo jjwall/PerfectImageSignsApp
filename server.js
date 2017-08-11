@@ -1,43 +1,10 @@
 // Dependencies
 var express = require("express");
 var mongojs = require("mongojs");
-var plist = require("plist");
 var bodyParser = require("body-parser");
 var path = require("path");
 var logger = require("morgan");
 //var GMAPIKey = require('./routes/GMapsAPIKey.js');
-
-var plist = require('plist');
-
-// var xml =
-//   '<?xml version="1.0" encoding="UTF-8"?>' +
-//   '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' +
-//   '<plist version="1.0">' +
-//     '<key>metadata</key>' +
-//     '<dict>' +
-//       '<key>bundle-identifier</key>' +
-//       '<string>com.company.app</string>' +
-// 			'<key>NSLocationWhenInUseUsageDescription</key>' +
-// 			'<string>Allow location?</string>' +
-//       '<key>bundle-version</key>' +
-//       '<string>0.1.1</string>' +
-//       '<key>kind</key>' +
-//       '<string>software</string>' +
-//       '<key>title</key>' +
-//       '<string>AppName</string>' +
-//     '</dict>' +
-//   '</plist>';
-//
-// console.log(plist.parse(xml));
-
-var json = [
-	"metadata",
-		{
-			"NSLocationAlwaysUsageDescription": "Allow Geolocation data to be sent"
-		}
-	];
-//var val =
-console.log(plist.build(json));
 
 var app = express();
 var PORT = process.env.PORT || 8080;
