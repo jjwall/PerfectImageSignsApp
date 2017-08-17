@@ -15,15 +15,25 @@ $(document).ready(function(){
     		var x = 0;
     		// counter for array
 			for (var i = 0; i < data.length; i++) {
+				console.log(data[i].date);
 				// if there is a repeat we do nothing...
 				if (signDateArr.includes(data[i].date)) {
 					console.log("We doing nothing");
+					//$("#results").prepend("^^^ " + data[i].company + data[i].date + "<br>");
 				}
 				else {
 					signDateArr.push(data[i].date);
-					$("#results").prepend(signDateArr[x]);
-					// append results in this else statement because if we have unique
-					// dates, then this ensures that they will get appended
+					for (var y = 0; y < data.length; y++) {
+						if (data[i].date === data[y].date) {
+							$("#results").prepend("*** " + data[y].company + data[y].date + "<br>");
+							// here we append actually information for each posting
+							// will need slick HTML as there can be any amout of posting per
+							// OR we just show picture of sign and then he can click on it
+							// module pops up and he can see the full posting info
+						}
+					}
+					$("#results").prepend("<strong>" + signDateArr[x] + "</strong>" + "<br>");
+					// append the "label date" so Mike can check postings for that date
 					x++;
 				}
 				//console.log(x);
@@ -41,7 +51,5 @@ $(document).ready(function(){
 			console.log(signDateArr);
 		});
 	}
-
 	getResults();
-
 });
