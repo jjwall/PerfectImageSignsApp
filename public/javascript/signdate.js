@@ -25,14 +25,16 @@ $(document).ready(function(){
 					signDateArr.push(data[i].date);
 					for (var y = 0; y < data.length; y++) {
 						if (data[i].date === data[y].date) {
-							$("#results").prepend("*** " + data[y].company + data[y].date + "<br>");
+							$("#results").prepend("<strong>company: </strong>" + data[y].company + "<br>" + "<strong>description: </strong>" + data[i].description +"<br>");
 							// here we append actually information for each posting
 							// will need slick HTML as there can be any amout of posting per
 							// OR we just show picture of sign and then he can click on it
 							// module pops up and he can see the full posting info
 						}
 					}
-					$("#results").prepend("<strong>" + signDateArr[x] + "</strong>" + "<br>");
+					$("#results").prepend(`<br><div class = "notification is-info"><strong style="color:white;">${signDateArr[x]}</strong></div>`);
+					//"<strong>" + signDateArr[x] + "</strong>"
+					//`<div class = "notification is-info"></div>`
 					// append the "label date" so Mike can check postings for that date
 					x++;
 				}
