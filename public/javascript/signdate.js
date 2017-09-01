@@ -65,7 +65,9 @@ $(document).ready(function(){
 					var signNum = $(this).data('index');
 					var modalBody = $("#signModalInfo");
 					modalBody.append(
-						`<h1>Location</h1>
+						`<div>Company: <strong>${data[signNum].company}</strong></div>
+						<div>Date Added: <strong>${data[signNum].date}</strong></div>
+						<div>Description: ${data[signNum].description}</div>
 						<div id="googleMap" style="width:100%;height:400px;"></div>
 						<script>
 							function myMap() {
@@ -85,7 +87,7 @@ $(document).ready(function(){
 							}
 						</script>
 						<script src="https://maps.googleapis.com/maps/api/js?key=${gmapkey}&callback=myMap"></script>
-						${data[signNum].description}`);
+						<div>(Location based on latitude / longitude coordinates: <strong>${data[signNum].latlon}</strong>)</div>`);
 					$("#signInfo").fadeToggle("fast, linear");
 				});
 			});
