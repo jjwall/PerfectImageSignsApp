@@ -5,6 +5,10 @@ $(document).ready(function(){
 		window.location.href = "/";
 	});
 
+	$(".closeInfo").click(function(){
+		$("#signInfo").fadeToggle("fast", "linear");
+	});
+
 	function getResults() {
 		// Empty any results currently on the page
 		$("#results").empty();
@@ -15,24 +19,25 @@ $(document).ready(function(){
     		var x = 0;
     		// counter for array
 			for (var i = 0; i < data.length; i++) {
-				console.log(data[i].date);
+				//console.log(data[i].date);
 				// if there is a repeat we do nothing...
 				if (signDateArr.includes(data[i].date)) {
-					console.log("We doing nothing");
+					//console.log("We doing nothing");
 					//$("#results").prepend("^^^ " + data[i].company + data[i].date + "<br>");
 				}
 				else {
 					signDateArr.push(data[i].date);
 					for (var y = 0; y < data.length; y++) {
 						if (data[i].date === data[y].date) {
-							$("#results").prepend("<strong>company: </strong>" + data[y].company + "<br>" + "<strong>description: </strong>" + data[i].description +"<br>");
+							$("#results").prepend(`<u><a class="signInfo" data-index="${y}" style="margin-left:25px">${data[y].company}</a><br><br>`);
+							// *** should be able to do ALL HTML on this prepend to make for slick UI ***
 							// here we append actually information for each posting
 							// will need slick HTML as there can be any amout of posting per
 							// OR we just show picture of sign and then he can click on it
 							// module pops up and he can see the full posting info
 						}
 					}
-					$("#results").prepend(`<br><div class = "notification is-info"><strong style="color:white;">${signDateArr[x]}</strong></div>`);
+					$("#results").prepend(`<div class = "notification is-info"><strong style="color:white;">${signDateArr[x]}</strong></div>`);
 					//"<strong>" + signDateArr[x] + "</strong>"
 					//`<div class = "notification is-info"></div>`
 					// append the "label date" so Mike can check postings for that date
@@ -49,8 +54,18 @@ $(document).ready(function(){
 				// console.log(data[i].latlon);
 				//$("#results").append(data[i].date);
 				// may need to build module within module here....
+
 			}
-			console.log(signDateArr);
+			$('.signInfo').each(function(){
+				$(this).on("click", function(event){
+					event.preventDefault();
+					$("#signModalInfo").empty();
+					var signNum = $(this).data('index');
+					var modalBody = $("#signModalInfo");
+					modalBody.append(data[signNum].description);
+					$("#signInfo").fadeToggle("fast, linear");
+				});
+			});
 		});
 	}
 	getResults();
