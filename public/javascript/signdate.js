@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	var gmapkey = config.GMAPS_KEY;
+
 	$("#back-home").on("click", function(event){
 		event.preventDefault();
 		window.location.href = "/";
@@ -62,7 +64,28 @@ $(document).ready(function(){
 					$("#signModalInfo").empty();
 					var signNum = $(this).data('index');
 					var modalBody = $("#signModalInfo");
-					modalBody.append(data[signNum].description);
+					modalBody.append(
+						`<h1>Location</h1>
+						<div id="googleMap" style="width:100%;height:400px;"></div>
+						<script>
+							function myMap() {
+								var latlon1 = new google.maps.LatLng(${data[signNum].latlon});
+								var mapProp = {
+									center: latlon1,
+									zoom:14,
+									mapTypeId:google.maps.MapTypeId.ROADMAP,
+									mapTypeControl:false,
+									navigationControlOptions:
+									{style:google.maps.NavigationControlStyle.SMALL}
+								};
+								var map = new
+									google.maps.Map(document.getElementById("googleMap"), mapProp);
+								var marker = new
+									google.maps.Marker({position:latlon1,map:map,title:"Sign located here!"});
+							}
+						</script>
+						<script src="https://maps.googleapis.com/maps/api/js?key=${gmapkey}&callback=myMap"></script>
+						${data[signNum].description}`);
 					$("#signInfo").fadeToggle("fast, linear");
 				});
 			});
