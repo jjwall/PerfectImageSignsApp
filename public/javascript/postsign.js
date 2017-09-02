@@ -4,6 +4,8 @@ $(document).ready(function(){
 
 	var description = $("#description");
 
+	var gmapkey = config.GMAPS_KEY;
+
 	$("#back-home").on("click", function(event){
 		event.preventDefault();
 		window.location.href = "/";
@@ -92,13 +94,18 @@ $(document).ready(function(){
 							<input class="input" id="longitude2" type="text" value="${data.longitude}">
 						</p>
 					</div>
-					<a class="button is-success is-outlined" id="submit-post2">Submit</a>
+					<div id="googleMap" style="width:100%;height:400px;"></div>
+					<a class="button is-success is-outlined" id="submit-post2">Submit</a><a class="button is-info is-outlined" id="checkMap" style="margin-left:5px;">Refresh Map</a>
 					<br>
 					<br>
 					<div id="submitPostError2"></div>
 					<script>
 
 						var globalDate = moment().format('MMMM Do, YYYY');
+
+						var globalLat = $("#latitude2").val();
+
+						var globalLon = $("#longitude2").val();
 
 						$("#submit-post2").on("click", function(event){
 							event.preventDefault();
@@ -159,7 +166,23 @@ $(document).ready(function(){
 							});
 						}
 
-					</script>`);
+						function myMap() {
+							var latlon1 = new google.maps.LatLng($("#latitude2").val(),$("#longitude2").val());
+							var mapProp = {
+								center: latlon1,
+								zoom:14,
+								mapTypeId:google.maps.MapTypeId.ROADMAP,
+								mapTypeControl:false,
+								navigationControlOptions:
+								{style:google.maps.NavigationControlStyle.SMALL}
+							};
+							var map = new
+								google.maps.Map(document.getElementById("googleMap"), mapProp);
+							var marker = new
+								google.maps.Marker({position:latlon1,map:map,title:"Sign located here!"});
+						}
+					</script>
+					<script src="https://maps.googleapis.com/maps/api/js?key=${gmapkey}&callback=myMap"></script>`);
 				//alert(`lat: ${data.latitude} lon: ${data.longitude}`);
 			});
 		}
