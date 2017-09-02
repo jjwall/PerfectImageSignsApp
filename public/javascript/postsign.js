@@ -14,6 +14,10 @@ $(document).ready(function(){
 		checkNull();
 	});
 
+	$(".closeModal").click(function(){
+		$("#latlonModal").fadeToggle("fast", "linear");
+	});
+
 	function checkNull () {
 		if (companyName.val() === "" || description.val() === "") {
 			$("#submitPostError").empty();
@@ -53,7 +57,7 @@ $(document).ready(function(){
 		function geo_error() {
 			// when geo_error fires, we still capture company name and description, but we do not automatically
 			// have access to user's lat/lon coordinates. So we pop up a module asking to input lat/lon coordinates manually
-  		alert("Either your device and/or browser does not support Geolocation. Please input your long/lat coords manually:");
+  		alert("Either your device and/or browser does not support Geolocation. Getting coordinates from your IP address which may not be entirely accurate, please update accordingly:");
 			$("#submit-post").removeClass("is-loading");
 			$.ajax({
 				type: "GET",
@@ -61,7 +65,102 @@ $(document).ready(function(){
 				dataType: 'jsonp'
 			}).done(function(data){
 				console.log(data);
-				alert(`lat: ${data.latitude} lon: ${data.longitude}`);
+				$("#latlonModalInfo").empty();
+				$("#latlonModal").fadeToggle("fast", "linear");
+				$("#latlonModalInfo").append(`
+					<div class="field">
+						<p>Company Name:</p>
+						<p class="control">
+							<input class="input" id="company-name2" type="text" value="${postCompanyName}">
+						</p>
+					</div>
+					<div class="field">
+						<p>Description:</p>
+						<p class="control">
+							<input class="input" id="description2" type="text" value="${postDescription}">
+						</p>
+					</div>
+					<div class="field">
+						<p>Latitude:</p>
+						<p class="control">
+							<input class="input" id="latitude2" type="text" value="${data.latitude}">
+						</p>
+					</div>
+					<div class="field">
+						<p>Longitude:</p>
+						<p class="control">
+							<input class="input" id="longitude2" type="text" value="${data.longitude}">
+						</p>
+					</div>
+					<a class="button is-success is-outlined" id="submit-post2">Submit</a>
+					<br>
+					<br>
+					<div id="submitPostError2"></div>
+					<script>
+
+						var globalDate = moment().format('MMMM Do, YYYY');
+
+						$("#submit-post2").on("click", function(event){
+							event.preventDefault();
+							checkNull2();
+						});
+
+						function checkNull2 () {
+							if ($("#company-name2").val() === "" || $("#description2").val() === "" || $("#latitude2").val() === "" || $("#longitude2").val() === "") {
+								$("#submitPostError2").empty();
+								$("#submitPostError2").append("<div><p>All fields need to be filled out!</p></div>");
+								if ($("#company-name2").val() === "") {
+									$("#company-name2").removeClass("is-success");
+									$("#company-name2").addClass("is-danger");
+								}
+								if ($("#description2").val() === "") {
+						      $("#description2").removeClass("is-success");
+									$("#description2").addClass("is-danger");
+								}
+								if ($("#latitude2").val() === "") {
+						      $("#latitude2").removeClass("is-success");
+									$("#latitude2").addClass("is-danger");
+								}
+								if ($("#longitude2").val() === "") {
+						      $("#longitude2").removeClass("is-success");
+									$("#longitude2").addClass("is-danger");
+								}
+							}
+							else {
+								submitPost2();
+							}
+						}
+
+						function submitPost2 () {
+							$("#latlonModal").fadeToggle("fast", "linear");
+							$.ajax({
+								type: "POST",
+								dataType: 'json',
+								url: '/api/signs',
+								data: {
+									company: $("#company-name2").val(),
+									description: $("#description2").val(),
+									date: globalDate,
+									latlon: $("#latitude2").val() + "," + $("#longitude2").val()
+								},
+								success: function (output) {
+									console.log(output);
+								},
+								error: function (request, status, error) {
+									$("#submit-post").removeClass("is-loading");
+									alert(request.responseText);
+								}
+							}).done(function(data) {
+								$("#company-name2").val("");
+								$("#description2").val("");
+								$("#latitude2").val("");
+								$("#longitude2").val("");
+								alert("Post successfully submitted!");
+							});
+						}
+
+					</script>`);
+				//alert(`lat: ${data.latitude} lon: ${data.longitude}`);
 			});
 		}
 
