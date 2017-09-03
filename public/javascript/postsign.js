@@ -60,7 +60,7 @@ $(document).ready(function(){
 			// when geo_error fires, we still capture company name and description, but we do not automatically
 			// have access to user's lat/lon coordinates. So we pop up a module asking to input lat/lon coordinates manually
   		alert("Either your device and/or browser does not support Geolocation. Getting coordinates from your IP address which may not be entirely accurate, please update accordingly:");
-			$("#submit-post").removeClass("is-loading");
+			//$("#submit-post").removeClass("is-loading");
 			$.ajax({
 				type: "GET",
 				url: 'http://freegeoip.net/json',
@@ -94,8 +94,8 @@ $(document).ready(function(){
 							<input class="input" id="longitude2" type="text" value="${data.longitude}">
 						</p>
 					</div>
-					<div id="googleMap" style="width:100%;height:400px;"></div>
-					<a class="button is-success is-outlined" id="submit-post2">Submit</a><a class="button is-info is-outlined" id="checkMap" style="margin-left:5px;">Refresh Map</a>
+					<div id="googleMap" style="width:50%;height:200px;"></div>
+					<a class="button is-success is-outlined" id="submit-post2">Submit</a><a class="button is-info is-outlined" id="refreshMap" style="margin-left:5px;">Refresh Map</a>
 					<br>
 					<br>
 					<div id="submitPostError2"></div>
@@ -110,6 +110,14 @@ $(document).ready(function(){
 						$("#submit-post2").on("click", function(event){
 							event.preventDefault();
 							checkNull2();
+						});
+
+						$(function() {
+    					$("#refreshMap").click(function() {
+        				$("#googleMap").animate({"height" : "200px"}, 500,function(){
+            			myMap();
+        				});
+    					});
 						});
 
 						function checkNull2 () {
@@ -162,7 +170,6 @@ $(document).ready(function(){
 								$("#description2").val("");
 								$("#latitude2").val("");
 								$("#longitude2").val("");
-								alert("Post successfully submitted!");
 							});
 						}
 
@@ -176,13 +183,23 @@ $(document).ready(function(){
 								navigationControlOptions:
 								{style:google.maps.NavigationControlStyle.SMALL}
 							};
-							var map = new
-								google.maps.Map(document.getElementById("googleMap"), mapProp);
-							var marker = new
-								google.maps.Marker({position:latlon1,map:map,title:"Sign located here!"});
+								map = new
+									google.maps.Map(document.getElementById("googleMap"), mapProp);
+								var marker = new
+									google.maps.Marker({position:latlon1,map:map,title:"Sign located here!"});
+
 						}
 					</script>
 					<script src="https://maps.googleapis.com/maps/api/js?key=${gmapkey}&callback=myMap"></script>`);
+					companyName.val("");
+					description.val("");
+					companyName.removeClass("is-danger");
+					description.removeClass("is-danger");
+					companyName.addClass("is-success");
+					description.addClass("is-success");
+					$("#submit-post").removeClass("is-loading");
+					$("#submitPostError").empty();
+					$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
 				//alert(`lat: ${data.latitude} lon: ${data.longitude}`);
 			});
 		}
