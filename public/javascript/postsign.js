@@ -5,6 +5,9 @@ $(document).ready(function(){
 	var description = $("#description");
 
 	var gmapkey = config.GMAPS_KEY;
+	// need to INITIALIZE google maps API at load of page, otherwise we will include Google Maps API
+	// multiple time on page which "may cause unexpected errors"
+	// same goes for signdate.js***
 
 	$("#back-home").on("click", function(event){
 		event.preventDefault();
@@ -170,6 +173,7 @@ $(document).ready(function(){
 								$("#description2").val("");
 								$("#latitude2").val("");
 								$("#longitude2").val("");
+								alert("Post successfully submitted!");
 							});
 						}
 
@@ -195,11 +199,11 @@ $(document).ready(function(){
 					description.val("");
 					companyName.removeClass("is-danger");
 					description.removeClass("is-danger");
-					companyName.addClass("is-success");
-					description.addClass("is-success");
+					// companyName.addClass("is-success");
+					// description.addClass("is-success");
 					$("#submit-post").removeClass("is-loading");
 					$("#submitPostError").empty();
-					$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
+					//$("#submitPostError").append("<div><p>Post successfully submitted!</p></div>");
 				//alert(`lat: ${data.latitude} lon: ${data.longitude}`);
 			});
 		}

@@ -2,6 +2,9 @@ $(document).ready(function(){
 
 	var gmapkey = config.GMAPS_KEY;
 	// google maps API key, hidden from public repo
+	// need to INITIALIZE google maps API at load of page, otherwise we will include Google Maps API
+	// multiple time on page which "may cause unexpected errors"
+	// same goes for postsign.js***
 
 	$("#back-home").on("click", function(event){
 		event.preventDefault();
