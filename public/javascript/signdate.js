@@ -6,6 +6,22 @@ $(document).ready(function(){
 	// multiple time on page which "may cause unexpected errors"
 	// same goes for postsign.js***
 
+	// function myMap() {
+	// 	var latlon1 = new google.maps.LatLng(${data[signNum].latlon});
+	// 	var mapProp = {
+	// 		center: latlon1,
+	// 		zoom:14,
+	// 		mapTypeId:google.maps.MapTypeId.ROADMAP,
+	// 		mapTypeControl:false,
+	// 		navigationControlOptions:
+	// 		{style:google.maps.NavigationControlStyle.SMALL}
+	// 	};
+	// 	var map = new
+	// 		google.maps.Map(document.getElementById("googleMap"), mapProp);
+	// 	var marker = new
+	// 		google.maps.Marker({position:latlon1,map:map,title:"Sign located here!"});
+	// }
+
 	$("#back-home").on("click", function(event){
 		event.preventDefault();
 		window.location.href = "/";
